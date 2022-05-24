@@ -1,14 +1,22 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
-import { WalletContext } from "../contexts/walletContext";
+
+
+import { getTransactions } from "../store/selectors";
+import { convertData } from "../utils/func_";
+
+
 
 function Summary() {
-  const { transactions, getTransactions } = useContext(WalletContext);
+  const {address,list} = useSelector(getTransactions);  
+  const [transactions,setTransaction] = useState()
 
   useEffect(() => {
-    getTransactions();
-  }, []);
-
+    if (list.length > 0) {
+      convertData(list,address,setTransaction)
+    }
+  }, [list]);
 
   return (
     <div className="col-md-7 ">
@@ -25,7 +33,7 @@ function Summary() {
               </tr>
             </thead>
             <tbody>
-              {transactions?.map((trans,key) => (
+              {transactions?.map((trans, key) => (
                 <tr key={key}>
                   <th scope="row">{key + 1}</th>
                   <td>{trans.amount}</td>

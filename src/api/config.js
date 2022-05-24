@@ -3,8 +3,10 @@ const TronWeb = require("tronweb");
 
 
 const base = "https://nile.trongrid.io";
-const telegramBotKey = '';
-const tron_api_key = '7ba3648b-fa3c-40bf-ac36-afacebbbf5cf'
+const telegramBotKey = process.env.REACT_APP_telegram_bot_key;
+const tron_api_key = process.env.REACT_APP_tron_api_key
+export const telegramGroupId = process.env.REACT_APP_telegramGroupId;
+
 
 const tronWeb = new TronWeb({
   fullHost: base,
